@@ -45,6 +45,14 @@ Other options:
 - `make tf-destroy`: Will destroy the infrastructure and service
 - `make tf-output`: Will show up the public and private ip addr of the instance
 
+## Using the private registry
+
+Multiple ways to do it, but a quick test would be:
+
+1. Create a dummy/test npm module
+2. `npm publish --registry http://$IP_ADDR/`
+3. `npm login --registry http://18.206.166.157`
+
 ## TODO
 
 - Implement Let's Encrypt SSL certificate to nginx and domain name support.
