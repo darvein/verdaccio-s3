@@ -1,0 +1,32 @@
+store:
+  aws-s3-storage:
+    bucket: VERDACCIO_S3_BUCKET
+    region: AWS_DEFAULT_REGION
+
+auth:
+  htpasswd:
+    file: ./htpasswd
+    max_users: -1 # no registrations allowed!
+
+uplinks:
+  npmjs:
+    url: https://registry.npmjs.org/
+
+packages:
+  # scoped packages
+  '@*/*':
+    access: $authenticated
+    publish: $authenticated
+    proxy: npmjs
+
+  # the rest
+  '**':
+    access: $all
+    publish: $authenticated
+    proxy: npmjs
+
+logs:
+  - { type: stdout, format: pretty, level: http }
+
+listen:
+  - 0.0.0.0:4873
