@@ -20,7 +20,7 @@ tf-output:
 
 docker-run:
 	@echo "[+] Docker compose starting..."
-	docker-compose up 
+	docker-compose up -d
 	@echo "Done."
 
 docker-stop:
