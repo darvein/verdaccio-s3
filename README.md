@@ -20,3 +20,4 @@ Requirements for development:
 ## TODO
 
 - Implement Let's Encrypt SSL certificate to nginx and domain name support
+- Move verdaccio s3 docker image to docker registry, stop building it during deploy

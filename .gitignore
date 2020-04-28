@@ -4,4 +4,4 @@ notes.txt
 **/terraform.tfstate.backup
 **/terraform.tfstate
 **/.terraform.tfstate.lock.info
-**/htpasswd
+conf/htpasswd
