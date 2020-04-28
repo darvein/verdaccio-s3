@@ -21,8 +21,12 @@ variable instance_type {
   default = "t2.small"
 }
 
-variable ssh_key_name {
-  description = "Existing SSH key pair created on AWS"
+variable ssh_private_key {
+  description = "Your local ssh private key that will be used to ssh into the box"
+}
+
+variable ssh_public_key {
+  description = "Your public ssh key that will be assigned to the machine's ~/.ssh/authorized_keys"
 }
 
 variable ec2_subnet_id {

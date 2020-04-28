@@ -1,6 +1,10 @@
+locals {
+  svc_user = "ec2-user"
+}
+
 resource "aws_key_pair" "deployer" {
-  key_name = "verdaccio"
-  public_key = file("~/tmp/ssh-dummy/dummy.pub")
+  key_name = var.name
+  public_key = file(var.ssh_public_key)
 }
 
 resource "aws_instance" "verdaccio" {
@@ -21,9 +25,8 @@ resource "aws_instance" "verdaccio" {
     connection {
       type = "ssh"
       user = "ec2-user"
-      private_key = file("~/tmp/ssh-dummy/dummy")
+      private_key = file(var.ssh_private_key)
       host = self.public_ip
-      #agent = true
     }
   }
 
@@ -33,10 +36,9 @@ resource "aws_instance" "verdaccio" {
 
     connection {
       type = "ssh"
-      user = "ec2-user"
-      private_key = file("~/tmp/ssh-dummy/dummy")
+      user = local.svc_user
+      private_key = file(var.ssh_private_key)
       host = self.public_ip
-      #agent = true
     }
   }
 
@@ -48,14 +50,11 @@ resource "aws_instance" "verdaccio" {
 
     connection {
       type = "ssh"
-      user = "ec2-user"
-      private_key = file("~/tmp/ssh-dummy/dummy")
+      user = local.svc_user
+      private_key = file(var.ssh_private_key)
       host = self.public_ip
-      #agent = true
     }
   }
-
-  #user_data = file("bootstrap.sh")
 
   tags = {
     Name = var.name
