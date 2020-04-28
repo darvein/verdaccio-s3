@@ -28,7 +28,7 @@ resource "aws_instance" "verdaccio" {
   }
 
   provisioner "file" {
-    source = ".env"
+    source = "../.env"
     destination = "~/dotenv"
 
     connection {
@@ -42,7 +42,7 @@ resource "aws_instance" "verdaccio" {
 
   provisioner "remote-exec" {
     inline = [
-      "chmod +x ~/bootstrap.sh"
+      "chmod +x ~/bootstrap.sh",
       "/bin/bash ~/bootstrap.sh"
     ]
 
