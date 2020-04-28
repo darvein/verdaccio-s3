@@ -20,7 +20,7 @@ tf-output:
 
 docker-run:
 	@echo "[+] Docker compose starting..."
-	docker-compose up -d
+	docker-compose up 
 	@echo "Done."
 
 docker-stop:
@@ -28,7 +28,7 @@ docker-stop:
 	docker-compose stop
 	@echo "Done."
 
-httpasswd:
+htpasswd:
 	@echo "[+] Generating httpasswd..."
-	docker run --rm -ti xmartlabs/htpasswd ${HTPASSWD_USER} ${HTPASSWD_PASSWORD} > ./conf/htpasswd
+	@htpasswd -Bbn ${HTPASSWD_USER} ${HTPASSWD_PASSWORD} > ./conf/htpasswd
 	@echo "Done."

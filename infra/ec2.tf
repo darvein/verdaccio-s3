@@ -18,6 +18,7 @@ resource "aws_instance" "verdaccio" {
 
   iam_instance_profile = aws_iam_instance_profile.profile.name
 
+  # The bootstraper that will setup and initialize verdaccio
   provisioner "file" {
     source = "bootstrap.sh"
     destination = "~/bootstrap.sh"
@@ -30,6 +31,7 @@ resource "aws_instance" "verdaccio" {
     }
   }
 
+  # Verdaccio config file
   provisioner "file" {
     source = "../.env"
     destination = "~/dotenv"
@@ -37,6 +39,19 @@ resource "aws_instance" "verdaccio" {
     connection {
       type = "ssh"
       user = local.svc_user
+      private_key = file(var.ssh_private_key)
+      host = self.public_ip
+    }
+  }
+
+  # Verdaccio HTTP Auth file
+  provisioner "file" {
+    source = "../conf/htpasswd"
+    destination = "~/htpasswd"
+
+    connection {
+      type = "ssh"
+      user = "ec2-user"
       private_key = file(var.ssh_private_key)
       host = self.public_ip
     }
