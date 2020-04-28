@@ -23,7 +23,7 @@ wget $TARBALL_ZIP -O /tmp/master.zip \
 cp ~/dotenv $TARGET_DIR/.env
 source $TARGET_DIR/.env
 cd $TARGET_DIR \
-  && make httpasswd \
+  && make htpasswd \
   && make docker-run
 
 # Setup nginx frontend server

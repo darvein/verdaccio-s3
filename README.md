@@ -1,5 +1,7 @@
 # Verdaccio with AWS S3 storage backend
 
+Verdaccio is a popular NPM Private registry service that can be used in a variaty of combinations. This repository uses it with Docker and AWS S3 + HTTP Authentication.
+
 ## What requirements?
 
 Requirements for deployment:
@@ -28,6 +30,20 @@ Most of the work is automated with a Makefile that makes all the work for you, y
 
 Note that for development purposes you have to provide your AWS Credentials in the .env file so Docker will know how to reach the AWS S3 bucket. In case you want to run Verdaccio locally, otherwise leave the AWS Creds variables empty so when the app is deployed on AWS EC2 it will access S3 via a IAM Role.
 
+1. Generate the HTTP Auth file
+`make htpasswd`
+
+2. Deploy the needed infrastructure and run the service. Make sure your .env doesn't contain any AWS Credentials, keep them empty.
+`make tf-apply`
+
+3. (Optional) Run Verdaccio locally. Make sure you have AWS Creds in the .env
+`make docker-run`
+
+Other options:
+
+- `make docker-stop`: Will stop docker compose
+- `make tf-destroy`: Will destroy the infrastructure and service
+- `make tf-output`: Will show up the public and private ip addr of the instance
 
 ## TODO
 
