@@ -15,6 +15,20 @@ tf-apply:
 	@echo "[+] Applying terraform..."
 	cd infra; terraform apply
 
+tf-output:
+	cd infra; terraform output
+
 docker-run:
 	@echo "[+] Docker compose starting..."
 	docker-compose up -d
+	@echo "Done."
+
+docker-stop:
+	@echo "[+] Docker compose stopping..."
+	docker-compose stop
+	@echo "Done."
+
+httpasswd:
+	@echo "[+] Generating httpasswd..."
+	docker run --rm -ti xmartlabs/htpasswd ${HTPASSWD_USER} ${HTPASSWD_PASSWORD} > ./conf/htpasswd
+	@echo "Done."
