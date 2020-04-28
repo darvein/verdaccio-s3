@@ -4,7 +4,8 @@ SVC_USER=ec2-user
 DOCKER_COMPOSE_VERSION=1.25.5
 TARGET_DIR=/opt/verdaccio-s3-master
 
-sudo yum update -y && sudo yum install -y wget unzip nginx
+sudo yum update -y && sudo yum install -y wget unzip
+sudo amazon-linux-extras install nginx1.12 -y
 
 sudo mkdir $TARGET_DIR &&
   sudo chown -R $SVC_USER:$SVC_USER $TARGET_DIR
@@ -24,7 +25,9 @@ cd $TARGET_DIR && make docker-run
 
 # Setup nginx frontend server
 sudo systemctl enable nginx
-sudo cat << EOF > /etc/nginx/sites-available/verdaccio
+sudo mkdir -p /etc/nginx/sites-enabled
+sudo bash -c 'echo "include /etc/nginx/sites-enabled/*.conf;" >> /etc/nginx/nginx.conf'
+sudo bash -c 'cat << EOF > /etc/nginx/sites-enabled/verdaccio
 server {
   listen 80 default_server;
 	access_log /var/log/nginx/verdaccio.log;
@@ -39,7 +42,8 @@ server {
     proxy_redirect off;
   }
 }
-EOF
+EOF'
+sudo service nginx restart
 
 # Clean up
 rm ~/dotenv
