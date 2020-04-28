@@ -76,3 +76,7 @@ resource "aws_instance" "verdaccio" {
   }
 }
 
+resource "aws_eip" "ip" {
+  vpc = true
+  instance = aws_instance.verdaccio.id
+}

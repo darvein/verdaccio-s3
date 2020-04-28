@@ -22,9 +22,7 @@ wget $TARBALL_ZIP -O /tmp/master.zip \
 # Setup and run verdaccio
 cp ~/dotenv $TARGET_DIR/.env
 source $TARGET_DIR/.env
-cd $TARGET_DIR \
-  && make htpasswd \
-  && make docker-run
+cd $TARGET_DIR && make docker-run
 
 # Setup nginx frontend server
 sudo systemctl enable nginx
