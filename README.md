@@ -19,4 +19,4 @@ Requirements for development:
 
 ## TODO
 
-- Implement Let's Encrypt SSL certificate to nginx
+- Implement Let's Encrypt SSL certificate to nginx and domain name support
