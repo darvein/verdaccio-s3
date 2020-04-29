@@ -13,7 +13,7 @@ tf-destroy:
 
 tf-apply:
 	@echo "[+] Applying terraform..."
-	cd infra; terraform apply
+	cd infra; terraform init; terraform apply
 
 tf-output:
 	cd infra; terraform output
