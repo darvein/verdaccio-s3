@@ -51,7 +51,7 @@ Multiple ways to do it, but a quick test would be:
 
 1. Create a dummy/test npm module
 2. `npm publish --registry http://$IP_ADDR/`
-3. `npm login --registry http://18.206.166.157`
+3. `npm login --registry http://$IP_ADDR`
 
 ## TODO
 
