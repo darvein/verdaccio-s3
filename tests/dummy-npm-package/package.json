@@ -1,6 +1,6 @@
 {
   "name": "dummy-npm-package",
-  "version": "1.3.9",
+  "version": "1.3.1",
   "description": "This does nothing",
   "main": "index.js",
   "scripts": {

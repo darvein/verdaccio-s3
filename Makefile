@@ -12,6 +12,11 @@ vagrant-provision:
 	@echo "[+] Creating virtual machine"
 	cd vagrant && vagrant up --provision
 
+vagrant-destroy:
+	@echo "[+] destroying virtual machine"
+	cd vagrant && vagrant destroy verdaccio
+
+
 vagrant-ssh:
 	@echo "[+] creating virtual machine"
 	cd vagrant && vagrant ssh
@@ -44,7 +49,7 @@ tf-destroy:
 # VERDACCIO_IP_ADDR=3.229.226.121 make pytest-verdaccio
 pytest-verdaccio:
 	@echo "[+] Running verdaccio service tests"
-	cd tests && pytest
+	cd tests && pytest verdaccio_test.py
 	
 pytest-terraform:
 	@echo "[+] Running verdaccio service tests"

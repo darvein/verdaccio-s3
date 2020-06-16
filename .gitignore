@@ -7,3 +7,7 @@ conf/htpasswd
 vagrant/.vagrant
 sshkey.pem
 **/__pycache__
+
+# lol
+ansible/roles/geerlingguy.nginx
+ansible/roles/geerlingguy.nodejs
