@@ -6,3 +6,4 @@
 conf/htpasswd
 vagrant/.vagrant
 sshkey.pem
+**/__pycache__

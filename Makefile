@@ -5,6 +5,7 @@ export
 export TF_VAR_region=${AWS_DEFAULT_REGION}
 export TF_VAR_vpc_id=${AWS_VPC_ID}
 export TF_VAR_bucket_name=${VERDACCIO_S3_BUCKET}
+export TF_VAR_instance_type=${VERDACCIO_EC2_INSTANCE_TYPE}
 export TF_VAR_project_name=${PROJECT_NAME}
 
 vagrant-provision:
@@ -30,7 +31,7 @@ tf-destroy:
 	@echo "[+] Applying terraform..."
 	cd terraform; terraform destroy
 
-provision-verdaccio:
+ansible-verdaccio:
 	@echo "[+] Provisioning verdaccio"
 	cd terraform ; \
 		terraform output ssh_private_pem > ../sshkey.pem ; \
@@ -40,18 +41,26 @@ provision-verdaccio:
 		echo "$${VERDACCIO_IP_ADDR}" ; \
 		ansible-playbook -i "$${VERDACCIO_IP_ADDR}", --key-file ../sshkey.pem --user ubuntu verdaccio.yml
 
+# VERDACCIO_IP_ADDR=3.229.226.121 make pytest-verdaccio
+pytest-verdaccio:
+	@echo "[+] Running verdaccio service tests"
+	cd tests && pytest
+	
+pytest-terraform:
+	@echo "[+] Running verdaccio service tests"
+	cd tests && pytest infra_test.py
 
-#docker-run:
-	#@echo "[+] Docker compose starting..."
-	#docker-compose up -d
-	#@echo "Done."
+docker-run:
+	@echo "[+] Docker compose starting..."
+	docker-compose up -d
+	@echo "Done."
 
-#docker-stop:
-	#@echo "[+] Docker compose stopping..."
-	#docker-compose stop
-	#@echo "Done."
+docker-stop:
+	@echo "[+] Docker compose stopping..."
+	docker-compose stop
+	@echo "Done."
 
-#htpasswd:
-	#@echo "[+] Generating httpasswd..."
-	#@htpasswd -Bbn ${HTPASSWD_USER} ${HTPASSWD_PASSWORD} > ./conf/htpasswd
-	#@echo "Done."
+htpasswd:
+	@echo "[+] Generating httpasswd..."
+	@htpasswd -Bbn ${HTPASSWD_USER} ${HTPASSWD_PASSWORD} > ./conf/htpasswd
+	@echo "Done."

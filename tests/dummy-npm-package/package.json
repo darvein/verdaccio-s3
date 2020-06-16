@@ -1,0 +1,14 @@
+{
+  "name": "dummy-npm-package",
+  "version": "1.3.9",
+  "description": "This does nothing",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "test"
+  ],
+  "author": "none",
+  "license": "ISC"
+}
