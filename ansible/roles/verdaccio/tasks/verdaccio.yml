@@ -1,0 +1,43 @@
+---
+
+- name: Verdaccio directory
+  file:
+    path  : "{{ verdaccio_dir }}"
+    owner : "{{ verdaccio_user }}"
+    group : "{{ verdaccio_user }}"
+    state : directory
+
+- name: Install verdaccio
+  npm:
+    name: verdaccio
+    global: true
+
+- name: Copy Verdaccio configuration file
+  template:
+    src:  config.yaml.j2
+    dest: "{{ verdaccio_dir }}/config.yaml"
+    owner: "{{ verdaccio_user }}"
+    group: "{{ verdaccio_user }}"
+  notify: restart verdaccio
+
+- name: Copy Verdaccio systemd service
+  template:
+    src:  verdaccio.service.j2
+    dest: /etc/systemd/system/verdaccio.service
+
+- name: Configure HTPASSWD for authentication
+  htpasswd:
+    path: "{{ verdaccio_dir }}/htpasswd"
+    name: "{{ verdaccio_app_user }}"
+    password: "{{ verdaccio_app_password }}"
+    crypt_scheme: "bcrypt"
+    owner: "{{ verdaccio_user }}"
+    group: "{{ verdaccio_user }}"
+    mode: 0640
+  notify: restart verdaccio
+
+- name: Enable Service
+  service:
+    name: verdaccio
+    enabled: true
+    state: started

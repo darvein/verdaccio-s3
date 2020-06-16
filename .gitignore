@@ -1,7 +1,8 @@
-notes.txt
 .env
 **/.terraform
 **/terraform.tfstate.backup
 **/terraform.tfstate
 **/.terraform.tfstate.lock.info
 conf/htpasswd
+vagrant/.vagrant
+sshkey.pem

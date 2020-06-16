@@ -1,0 +1,11 @@
+[Unit]
+Description=Verdaccio Service
+
+[Service]
+Type=simple
+User={{ verdaccio_user }}
+WorkingDirectory={{ verdaccio_dir }}
+ExecStart=/usr/bin/verdaccio --config {{ verdaccio_dir }}/config.yaml
+
+[Install]
+WantedBy=multi-user.target

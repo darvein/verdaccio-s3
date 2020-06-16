@@ -1,0 +1,29 @@
+---
+
+- name: Verdaccio playbook
+  become: True
+  hosts: all
+
+  vars:
+    # nodejs
+    nodejs_version: "14.x"
+
+    # nginx
+    nginx_vhosts:
+      - server_name: "verdaccio"
+        template: "{{ playbook_dir }}/templates/verdaccio.vhost.j2"
+    nginx_remove_default_vhost: true
+
+    # verdaccio
+    verdaccio_app_user: "{{ lookup('env', 'HTPASSWD_USER') }}" 
+    verdaccio_app_password: "{{ lookup('env', 'HTPASSWD_PASSWORD') }}"
+    verdaccio_app_listener: "127.0.0.1:{{ lookup('env', 'VERDACCIO_PORT') }}"
+    verdaccio_enable_disk_storage: "{{ lookup('env', 'VERDACCIO_ENABLE_DISK_STORAGE') }}"
+    verdaccio_enable_awss3_storage: "{{ lookup('env', 'VERDACCIO_ENABLE_AWSS3_STORAGE') }}"
+    verdaccio_awss3_bucket: "{{ lookup('env', 'VERDACCIO_S3_BUCKET') }}"
+    verdaccio_awss3_default_region: "{{ lookup('env', 'AWS_DEFAULT_REGION') }}"
+
+  roles:
+    - { role: geerlingguy.nodejs }
+    - { role: geerlingguy.nginx }
+    - { role: verdaccio }

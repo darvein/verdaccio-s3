@@ -1,0 +1,13 @@
+---
+
+- include: dependencies.yml
+
+- include: user-group.yml
+
+- include: disk-storage.yml
+  when: verdaccio_enable_disk_storage == True
+
+- include: aws-s3.yml
+  when: verdaccio_enable_awss3_storage == True
+
+- include: verdaccio.yml

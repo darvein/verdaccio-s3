@@ -1,0 +1,25 @@
+---
+
+# App configuration
+verdaccio_app_user: demo
+verdaccio_app_password: demo
+verdaccio_app_listener: 127.0.0.1:4873
+
+# User and Group definition
+verdaccio_user: verdaccio
+
+# Verdaccio installation directory
+verdaccio_dir: /opt/verdaccio
+
+# Disk storage
+verdaccio_enable_disk_storage: True
+verdaccio_storage_dir: /opt/verdaccio_storage
+
+# AWS S3 backend storage
+verdaccio_enable_awss3_storage: False
+verdaccio_awss3_bucket: verdaccio
+verdaccio_awss3_default_region: us-east-1
+
+# Logging
+verdaccio_app_log: /opt/verdaccio/verdaccio.log
+verdaccio_nginx_log: /var/log/nginx/verdaccio.log

@@ -1,0 +1,5 @@
+---
+
+- name: Verdaccio user setup
+  user:
+    name: "{{ verdaccio_user }}" 

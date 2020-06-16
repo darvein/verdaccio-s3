@@ -1,0 +1,6 @@
+---
+
+- name: Install AWS S3 backend plugin
+  npm:
+    name: verdaccio-aws-s3-storage
+    global: true

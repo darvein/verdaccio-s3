@@ -1,0 +1,13 @@
+---
+
+- name: Installing packages via APT
+  apt:
+    update_cache: yes
+    pkg:
+      - python3-passlib
+      - python3-pip
+      - apache2-utils
+
+- name: PIP needed packages
+  pip:
+    name: bcrypt

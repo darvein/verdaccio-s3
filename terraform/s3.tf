@@ -6,7 +6,8 @@ resource "aws_s3_bucket" "bucket" {
     enabled = true
   }
 
-  tags = {
-    Name = var.bucket_name
-  }
+  tags = merge(
+    var.general_tags,
+    { Name = format("%s", var.bucket_name) }
+  )
 }

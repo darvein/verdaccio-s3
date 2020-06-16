@@ -1,0 +1,30 @@
+machine = {
+  :box_image   => ENV['VBOX_IMAGE'],
+  :ipaddr      => ENV['VBOX_IP_ADDR'],
+  :hostname    => ENV['PROJECT_NAME'],
+  :shared_path => "/opt/installer",
+  :shared      => "../"
+}
+
+Vagrant.configure(2) do |config|
+  config.vm.define machine[:hostname] do |v|
+    v.vm.box      = machine[:box_image]
+    v.vm.hostname = machine[:hostname]
+
+    v.vm.network :private_network,
+      ip: machine[:ipaddr]
+
+    v.vm.synced_folder machine[:shared],
+      machine[:shared_path]
+
+    config.vm.provider "virtualbox" do |v|
+      v.name = machine[:hostname]
+    end
+
+    config.vm.provision "ansible" do |ansible|
+      ansible.playbook    = "../ansible/verdaccio.yml"
+      ansible.config_file = "../ansible/ansible.cfg"
+      #ansible.inventory_file = ".vagrant/provisioners/ansible/inventory/vagrant_ansible_inventory"
+    end
+  end
+end

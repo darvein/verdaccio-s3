@@ -1,0 +1,38 @@
+{% if verdaccio_enable_awss3_storage == True %}
+store:
+  aws-s3-storage:
+    bucket: {{ verdaccio_awss3_bucket }}
+    region: {{ verdaccio_awss3_default_region }}
+{% endif %}
+
+{% if verdaccio_enable_disk_storage == True %}
+storage: {{ verdaccio_storage_dir }}
+{% endif %}
+
+auth:
+  htpasswd:
+    file: ./htpasswd
+    max_users: -1 # no registrations allowed!
+
+uplinks:
+  npmjs:
+    url: https://registry.npmjs.org/
+
+packages:
+  # scoped packages
+  '@*/*':
+    access: $authenticated
+    publish: $authenticated
+    proxy: npmjs
+
+  # the rest of packages
+  '**':
+    access: $all
+    publish: $authenticated
+    proxy: npmjs
+
+logs:
+  - { type: file, path: {{ verdaccio_app_log }}, level: info }
+
+listen:
+  - {{ verdaccio_app_listener }}

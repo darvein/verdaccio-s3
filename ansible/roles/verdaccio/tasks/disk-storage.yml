@@ -1,0 +1,8 @@
+---
+
+- name: Verdaccio directory
+  file:
+    owner : "{{ verdaccio_user }}"
+    group : "{{ verdaccio_user }}"
+    path  : "{{ verdaccio_storage_dir }}"
+    state : directory
