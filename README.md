@@ -2,59 +2,44 @@
 
 Verdaccio is a popular NPM Private registry service that can be used in a variaty of combinations. This repository uses it with Docker and AWS S3 + HTTP Authentication.
 
-## What requirements?
+## Pre-requisites
 
-Requirements for deployment:
+You will need to have:
 
-- AWS Account and access key credentials
+- An AWS Account
+- Vagrant installed
+- Ansible installed
+- Terraform CLI installed
 
-Requirements for development:
+Make sure you have configured valid credentials on your shell session.
 
-- Docker cli installed
-- Docker compose
-- Terraform
+## Development with Vagrant
 
-## What we'll get?
+Virtualbox machine setup with Verdaccio  provided by Ansible
+```
+vagrant-provision
+vagrant-ssh
+```
 
-- Verdaccio deploy with docker-compose as the orchestrator
-- Nginx frontend for Verdaccio on port tcp/80
+## Verdaccio configuration with Ansible
+Ansible playbooks exeuction for Verdaccio, NGINX and NodeJS setup
+```
+ansible-galaxy
+ansible-verdaccio
+```
 
-## Limitations
+## Infrastructure deployment
+Infrastructure deployment on AWS Cloud provider. Simply an EC2 instance, an EIP and a S3 Bucket.
+```
+tf-apply
+tf-output
+tf-destroy
+```
 
-- Verdaccio will only work with AWS S3 backend as a storage
-- Authentication to Verdaccio is a single user defined in the .env file which will generate a htpasswd file.
+## Testing
+Python testing of Verdaccio service and the AWS Infra itself
+```
+pytest-verdaccio
+pytest-terraform
+```
 
-## How to use it?
-
-Most of the work is automated with a Makefile that makes all the work for you, you just need to provide some configurations in the `.env` file which needs to be created from `.env.example`.
-
-Note that for development purposes you have to provide your AWS Credentials in the .env file so Docker will know how to reach the AWS S3 bucket. In case you want to run Verdaccio locally, otherwise leave the AWS Creds variables empty so when the app is deployed on AWS EC2 it will access S3 via a IAM Role.
-
-1. Generate the HTTP Auth file
-`make htpasswd`
-
-2. Deploy the needed infrastructure and run the service. Make sure your .env doesn't contain any AWS Credentials, keep them empty.
-`make tf-apply`
-
-3. (Optional) Run Verdaccio locally. Make sure you have AWS Creds in the .env
-`make docker-run`
-
-Other options:
-
-- `make docker-stop`: Will stop docker compose
-- `make tf-destroy`: Will destroy the infrastructure and service
-- `make tf-output`: Will show up the public and private ip addr of the instance
-
-## Using the private registry
-
-Multiple ways to do it, but a quick test would be:
-
-1. Create a dummy/test npm module
-2. `npm publish --registry http://$IP_ADDR/`
-3. `npm login --registry http://$IP_ADDR`
-
-## TODO
-
-- Implement Let's Encrypt SSL certificate to nginx and domain name support.
-- Move verdaccio s3 docker image to docker registry, stop building it during deploy.
-- The IAM Role should only have access to the verdaccio s3 bucket, nothing else.
