@@ -42,4 +42,8 @@ Python testing of Verdaccio service and the AWS Infra itself
 pytest-verdaccio
 pytest-terraform
 ```
+## TODOs:
 
+- HTTPS Support with LetsEncrpyt certificates
+- Limit IAM policies which currently are too open
+- Extend Ansible playbooks to support Redhat/Centos systems

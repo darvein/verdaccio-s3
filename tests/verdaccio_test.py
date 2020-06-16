@@ -45,10 +45,6 @@ def get_npm_token(url):
 
 def test_npm_publish():
     token = get_npm_token(VERDACCIO_HTTP_URL)
-    # run_cmd("npm set registry {}".format(VERDACCIO_HTTP_URL))
-    # run_cmd("npm set //{}/:_authToken {}".format(VERDACCIO_HTTP_URL, token))
-    # assert run_cmd("cd dummy-npm-package && npm publish") == 0
-
     cmd = "npm set registry {}".format(VERDACCIO_HTTP_URL)
     cmd += "; npm set //{}/:_authToken {}".format(VERDACCIO_IP_ADDR, token)
     cmd += "; cd dummy-npm-package && npm publish"
@@ -57,10 +53,6 @@ def test_npm_publish():
 
 def test_npm_unpublish():
     token = get_npm_token(VERDACCIO_HTTP_URL)
-    # run_cmd("npm set registry {}".format(VERDACCIO_HTTP_URL))
-    # run_cmd("npm set //{}/:_authToken {}".format(VERDACCIO_HTTP_URL, token))
-    # assert run_cmd("cd dummy-npm-package && npm --force unpublish") == 0
-
     cmd = "npm set registry {}".format(VERDACCIO_HTTP_URL)
     cmd += "; npm set //{}/:_authToken {}".format(VERDACCIO_IP_ADDR, token)
     cmd += "; cd dummy-npm-package && npm --force unpublish"
